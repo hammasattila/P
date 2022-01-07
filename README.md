@@ -136,3 +136,28 @@ switch (jegy){
 ### 1.5.1. While ciklus
 
 while ( `<feltétel>` ) { `<utasítások>` }
+do { `<utasítások>` } while ( `<feltétel>` );
+
+![While ciklus](./assets/images/while.png)
+
+### 1.5.2. For ciklus
+
+Általános alakja: for ( `<kif1>` ; `<kif2>` ; `<kif3>` ) { `<ciklus mag>` }. A `<kif1>` az az elöt fut le mielött belépünk a ciklusba, ezt használjuk inicializálásra. A `<kif2>` az a leállási feltétel. A `<kif3>` határozza meg hogy minden ciklus végén mit hajtsunk végre, például hányasával lépkedjünk.
+
+### 1.5.3. Spéci kulcsszavak
+
+`continue`: abbahagyja a jelenlegi ciklusmagot és kezdi a következőt.
+
+`break`: abbahagyja a jelenlegi ciklusmagot és kilép a ciklusból.
+
+`goto`: egy feltételnélküli ugrás valahová a kódba (ezt csak akkor jó használni, ha nem lehet megoldani a sehogyse másképp).
+
+## 1.6. Függvények és metodusok
+
+Deklaráció: `<típus>` `<azonosító>` (`<típus1>`, ..., `<típusN>`); A `<típus>` segítségével határozzuk meg hogy a függvényünk mit térit vissza. Az `<azonosító>` az egy teszőleges név amivel megtudjuk határozni az adott függvényt/metodust. A (`<típus1>`, ..., `<típusN>`) a paramétertípus lista.
+
+Definició: `<típus>` `<azonosító>` (`<típus1>` `<név1>`, ..., `<típusn>` `<névn>`) { o; o; o; return `<eredmény>`; }
+
+A deklaráció segítségével csak meghatározuk az adott függvény alakját, míg a definicó az konkrétan leírja az eljárást. Mielött hívatkoznunk egy függvényre egyszer kell legyen **deklarálva**.
+
+![A fő függvény](./assets/images/main.png)
