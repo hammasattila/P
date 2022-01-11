@@ -32,9 +32,7 @@ char str[] = "Hello World!";    // Ha egyből adunk kezdeti értéket akkor nem 
 int *ptr = &i;                  // Az 'i' változó cime elmentve az int mutató 'ptr' változóba.
 ```
 
-## 1.3. Írás/Olvasás
-
-### 1.3.1. Képernyőre
+## 1.3. Írás/Olvasás képernyőre
 
 A képernyőről való olvasásra és a képernyőre való írásra vanak C függvények: `scanf("<formázósor>", <mutató>, <mutató>, ...);` és `printf("<formázósor>", <változó>, <változó>, ...);`
 
@@ -161,3 +159,115 @@ Definició: `<típus>` `<azonosító>` (`<típus1>` `<név1>`, ..., `<típusn>` 
 A deklaráció segítségével csak meghatározuk az adott függvény alakját, míg a definicó az konkrétan leírja az eljárást. Mielött hívatkoznunk egy függvényre egyszer kell legyen **deklarálva**.
 
 ![A fő függvény](./assets/images/main.png)
+
+## 1.3. Írás/Olvasás fileba
+
+A szöveges álománykezelés nagyon hasonlít a standard ki/be-menet kezelésére. A különbség hogy elöbb meg kell nyissuk a fájlt.
+
+ANSI C-ben a fájlokat egy `FILE *` mutaó segítségével tudjuk tárolni. Az `fopen()` függvény segítségével nyissuk meg, és az `fclose()` függvény segítségével zárjuk be.
+
+```C
+#include <cstdio>
+
+int main(int argc, char const *argv[]) {
+    FILE *fin; //állománypointer (választhatsz más nevet is)
+    fin = fopen("<állománynév>", "rt");
+    if(!fin){
+        printf("Sikertelen allomanymegnyitas!\n\r");
+        return 1;
+    }
+    •••
+    fscanf(fin, "<formázósor>", <változócímlista>);
+    •••
+    fclose(fin);
+
+    return 0;
+}
+```
+
+```C
+#include <cstdio>
+
+int main(int argc, char const *argv[]) {
+    FILE *fout; //állománypointer (választhatsz más nevet is)
+    fout = fopen("<állománynév>", "wt");
+    if(!fout){
+        printf("Sikertelen allomanymegnyitas!\n\r");
+        return 1;
+    }
+    •••
+    fprintf(fout, "<formázósor>", <kifejezéslista>);
+    •••
+    fclose(fout);
+
+    return 0;
+}
+```
+
+ANSI C-ben a fájlokat egy `fstream` (`ifstream` vagy `ofstream`) típus segítségével tudjuk tárolni. Az `fstream` típus rendelkezik egy `.open()` metodussal, ami segítségével meg nyissuk, és az `.close()` metódus segítségével zárjuk be.
+
+```C++
+#include <iostream>
+#include <fstream>
+
+int main(int argc, char const *argv[]) {
+    int x; double y;
+    •••
+    ifstream fin;
+    fin.open ("<állománynév>");
+    if(!fin.is_open()){
+        std::cout << "Sikertelen allomanymegnyitas!" << std::endl;
+        return 1;
+    }
+    •••
+    fin >> x >> y;
+    •••
+    fin.close();
+
+    return 0;
+}
+```
+
+```C++
+#include <iostream>
+#include <fstream>
+
+int main(int argc, char const *argv[]) {
+    ofstream fout;
+    fout.open ("<állománynév>");
+    if(!fout.is_open()){
+        std::cout << "Sikertelen allomanymegnyitas!" << std::endl;
+        return 1;
+    }
+    •••
+    fout << "Fájlba való kiíratás" << std::endl;
+    •••
+    fout.close();
+
+    return 0;
+}
+```
+
+Példa küdrészlet, ami fájl végéig beolvas szavakat:
+
+```C
+for( i = 0 ; fscanf(fin, “%s”, szo) != EOF ; ++i ){
+    •••
+}
+```
+
+```C
+for(i = 0 ; !fin.eof() ; ++i){
+    fin >> •••;
+    •••
+}
+```
+
+Például ha egy olyan programot akarunk tesztelni ami a billentyüzetről olvas és a képernyőre ír de szeretnénk automatizálni a teszteleést akkor a `freopen` segítségével tudjuk ezt megcsinálni. Ez átírányítja a fájlt egy adott adatfolyamra: `stdin` (billentyüzet) vagy `stdout` (lépernyő).
+
+```C
+// Áttírányítunk egy filet a standard bemenetre (a billentyüzet helyet a fájlból olvasól).
+freopen("be.txt", “rt”, stdin);
+// Áttírányítunk egy filet a standard kimenetre (a képernyő helyett a fájlba).
+freopen("ki.txt", “wt”, stdout);
+```
