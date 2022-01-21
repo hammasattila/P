@@ -271,3 +271,49 @@ freopen("be.txt", “rt”, stdin);
 // Áttírányítunk egy filet a standard kimenetre (a képernyő helyett a fájlba).
 freopen("ki.txt", “wt”, stdout);
 ```
+
+## Tömbök
+
+Egy tömb dklarálása `<elemtípus>` `<azonosító>`[`<elemszám>`];
+![A tömbök](assets/images/array.png)
+
+```C++
+// Példák deklarációra és definicióra.
+int a[100];
+double x[10], y, z[50];
+short b[5] = { 11, 22, 33, 44, 55 };
+long c[1000] = { 0 }, d[50] = { 1 };
+char s[5] = { 'a', 'b', 'c', 'd', 'e', 'f' };
+int w[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+```
+
+Példa beolvasásra:
+
+```C++
+// Egydimenziós tömb beolvasása.
+int main() {
+    freopen(“szamsor.txt”, “r”, stdin);
+    int n, a[100];
+    std::cin >> n; // vagy: scanf(“%i”, &n);
+    for(int i = 0; i < n; ++i) { // generálja i-ben az
+        std::cin >> a[i]; // scanf(“%i”, &a[i]); // 0,1,...,n-1 index-sort
+    }
+    •••
+    return 0;
+}
+
+// Két dimenziós tömb beolvasása
+int main() {
+    freopen(“szamsor.txt”, “r”, stdin);
+    int n, a[100][100];
+    std::cin >> n; // vagy: scanf(“%i”, &n);
+    for(int i = 0; i < n; ++i) { // generálja i-ben az
+        for(int j = 0; j < n; ++j) { // generálja j-ben az
+            std::cin >> a[i][j];
+        }
+    }
+    •••
+    return 0;
+}
+```
+
